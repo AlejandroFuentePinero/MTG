@@ -7,7 +7,7 @@
             font-family: Arial, sans-serif;
             background-color: #f3f3f3;
             margin: 0;
-            padding: 0;
+            padding:0;
         }
         h1 {
             background-color: #0074cc;
@@ -63,6 +63,7 @@
                 <select id="deck-size">
                     <option value="60">60 cards</option>
                     <option value="80">80 cards</option>
+                    <option value="40">40 cards</option>
                 </select>
                 <label for="average-mana-curve">Avg. Mana Curve:</label>
                 <input type="number" step="0.01" id="average-mana-curve" value="3.5">
@@ -88,6 +89,7 @@
                 <select id="color-deck-size">
                     <option value="60">60 cards</option>
                     <option value="80">80 cards</option>
+                    <option value="40">40 cards</option>
                 </select>
                 <label for="mana-cost">Select Mana Cost:</label>
                 <select id="mana-cost">
@@ -146,9 +148,102 @@
             const colorBaseData = {
                 "5C": {
                     "60": 9,
-                    "80": 12
+                    "80": 12,
+                    "40": 6
                 },
-                // (Rest of the color base data remains the same)
+                "4C": {
+                    "60": 9,
+                    "80": 14,
+                    "40": 7
+                },
+                "3C": {
+                    "60": 10,
+                    "80": 15,
+                    "40": 8
+                },
+                "2C": {
+                    "60": 12,
+                    "80": 16,
+                    "40": 8
+                },
+                "5CC": {
+                    "60": 12,
+                    "80": 17,
+                    "40": 8
+                },
+                "1C": {
+                    "60": 13,
+                    "80": 18,
+                    "40": 9
+                },
+                "4CC": {
+                    "60": 13,
+                    "80": 19,
+                    "40": 9
+                },
+                "C": {
+                    "60": 14,
+                    "80": 19,
+                    "40": 9
+                },
+                "3CC": {
+                    "60": 15,
+                    "80": 20,
+                    "40": 10
+                },
+                "4CCC": {
+                    "60": 16,
+                    "80": 22,
+                    "40": 10
+                },
+                "2CC": {
+                    "60": 16,
+                    "80": 23,
+                    "40": 11
+                },
+                "3CC": {
+                    "60": 17,
+                    "80": 24,
+                    "40": 11
+                },
+                "1CC": {
+                    "60": 18,
+                    "80": 25,
+                    "40": 12
+                },
+                "2CCC": {
+                    "60": 19,
+                    "80": 26,
+                    "40": 13
+                },
+                "CC": {
+                    "60": 21,
+                    "80": 28,
+                    "40": 14
+                },
+                "1CCC": {
+                    "60": 22,
+                    "80": 31,
+                    "40": 15
+                },
+                "CCC": {
+                    "60": 23,
+                    "80": 32,
+                    "40": 16
+                },
+                "CCCC": {
+                    "60": 24,
+                    "80": 34,
+                    "40": 17
+                }
             };
 
-            // Get the number
+            // Get the number of color sources based on deck size and mana cost
+            const colorSources = colorBaseData[manaCost][deckSize];
+
+            // Display the result
+            document.getElementById("color-base-result").textContent = `Number of Lands Needed: ${colorSources} (I would always recommend rounding up)`;
+        }
+    </script>
+</body>
+</html>
