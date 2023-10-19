@@ -66,15 +66,15 @@
                     <option value="40">40 cards</option>
                 </select>
                 <label for="average-mana-curve">Avg. Mana Curve:</label>
-                <input type="number" step="0.01" id="average-mana-curve" value="3.5" style="width: 60px;">
+                <input type="number" step="0.1" id="average-mana-curve" value="3.5" style="width: 60px;">
                 <label for="cheap-draw-ramp">Number of cheap draw/ramp cards:</label>
-                <input type="number" step="0.01" id="cheap-draw-ramp" value="0" style="width: 60px;">
+                <input type="number" step="1" id="cheap-draw-ramp" value="0" style="width: 60px;">
                 <label>Companion?:</label>
                 <label><input type="checkbox" id="companion"> Have a companion</label>
                 <label for="non-mythic-mdfc">(Non-Mythic MDFC; e.g., Jwari Disruption):</label>
-                <input type="number" step="0.01" id="non-mythic-mdfc" value="0" style="width: 60px;">
+                <input type="number" step="1" id="non-mythic-mdfc" value="0" style="width: 60px;">
                 <label for="mythic-mdfc">(Mythic MDFC; e.g., Emiria's Call):</label>
-                <input type="number" step="0.01" id="mythic-mdfc" value="0" style="width: 60px;">
+                <input type="number" step="1" id="mythic-mdfc" value="0" style="width: 60px;">
                 <button type="button" onclick="calculateLands()">Calculate Lands</button>
             </form>
             <p id="land-result"></p>
