@@ -21,7 +21,7 @@
             padding: 20px;
         }
         .tool {
-            max-width: 400px;
+            width: 400px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -50,6 +50,10 @@
         button:hover {
             background-color: #005aa7;
         }
+        #land-result {
+            font-size: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -65,15 +69,15 @@
                     <option value="80">80 cards</option>
                 </select>
                 <label for="average-mana-curve">Average Mana Curve:</label>
-                <input type="number" step="0.01" id="average-mana-curve">
+                <input type="number" step="0.01" id="average-mana-curve" value="3.5">
                 <label for="cheap-draw-ramp">Cheap Draw/Ramp:</label>
-                <input type="number" step="0.01" id="cheap-draw-ramp">
+                <input type="number" step="0.01" id="cheap-draw-ramp" value="0">
                 <label>Companion:</label>
                 <label><input type="checkbox" id="companion"> Have a companion</label>
                 <label for="non-mythic-mdfc">Non-Mythic MDFC (e.g., Jwari Disruption):</label>
-                <input type="number" step="0.01" id="non-mythic-mdfc">
+                <input type="number" step="0.01" id="non-mythic-mdfc" value="0">
                 <label for="mythic-mdfc">Mythic MDFC (e.g., Don't include Emiria's Call):</label>
-                <input type="number" step="0.01" id="mythic-mdfc">
+                <input type="number" step="0.01" id="mythic-mdfc" value="0">
                 <button type="button" onclick="calculateLands()">Calculate Lands</button>
             </form>
             <p id="land-result"></p>
@@ -84,7 +88,7 @@
             <h2>Color Base Calculator</h2>
             <p>How many color sources do you need to cast your spells (with >90% consistency)?</p>
             <form id="mtg-color-base-calculator">
-                <label for="deck-size">Deck Size:</label>
+                <label for="color-deck-size">Deck Size:</label>
                 <select id="color-deck-size">
                     <option value="60">60 cards</option>
                     <option value="80">80 cards</option>
@@ -128,10 +132,12 @@
             const mythicMDFC = parseFloat(document.getElementById("mythic-mdfc").value);
 
             // Calculate based on deck size
-            const lands = deckSize / 60 * (19.59 + 1.90 * averageManaCurve + (hasCompanion ? 0.27 : 0)) - 0.28 * cheapDrawRamp - (nonMythicMDFC - mythicMDFC);
+            const lands = deckSize === 60 ?
+                deckSize / 60 * (19.59 + 1.90 * averageManaCurve + (hasCompanion ? 0.27 : 0)) - 0.28 * cheapDrawRamp - (nonMythicMDFC - mythicMDFC) :
+                0; // No support for 40-card decks
 
             // Display the result
-            document.getElementById("land-result").textContent = `Number of Lands Needed: ${lands}`;
+            document.getElementById("land-result").textContent = `Number of Lands Needed: ${lands} (I would always recommend rounding up)`;
         }
 
         // Color Base Calculator Function
