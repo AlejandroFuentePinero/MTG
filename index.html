@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>MTG Deck Land Calculator</title>
+    <title>MTG Deck Tools</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,19 +15,24 @@
             padding: 20px;
             text-align: center;
         }
-        form {
-            max-width: 400px;
-            margin: 0 auto;
+        .tool-container {
+            display: flex;
+            justify-content: space-around;
             padding: 20px;
+        }
+        .tool {
+            max-width: 400px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            margin: 10px;
         }
         label, p {
             display: block;
             margin-bottom: 10px;
         }
-        input[type="number"] {
+        select, input[type="number"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -48,33 +53,77 @@
     </style>
 </head>
 <body>
-    <h1>MTG Deck Land Calculator</h1>
-    <form id="mtg-calculator">
-        <label for="deck-size">Deck Size:</label>
-        <select id="deck-size">
-            <option value="60">60 cards</option>
-            <option value="80">80 cards</option>
-        </select>
-        <label for="average-mana-curve">Average Mana Curve:</label>
-        <input type="number" step="0.01" id="average-mana-curve">
-        <label for="cheap-draw-ramp">Cheap Draw/Ramp:</label>
-        <input type="number" step="0.01" id "cheap-draw-ramp">
-        <label>Companion:</label>
-        <label><input type="checkbox" id="companion"> Have a companion</label>
-        <label for="non-mythic-mdfc">Non-Mythic MDFC (e.g., Jwari Disruption):</label>
-        <input type="number" step="0.01" id="non-mythic-mdfc">
-        <label for="mythic-mdfc">Mythic MDFC (e.g., Don't include Emiria's Call):</label>
-        <input type="number" step="0.01" id="mythic-mdfc">
-        <button type="button" onclick="calculateLands()">Calculate Lands</button>
-    </form>
-    <p id="result"></p>
+    <h1>MTG Deck Tools</h1>
+    <div class="tool-container">
+        <!-- Land Calculator Tool -->
+        <div class="tool" id="land-calculator">
+            <h2>Deck Land Calculator</h2>
+            <form id="mtg-land-calculator">
+                <label for="deck-size">Deck Size:</label>
+                <select id="deck-size">
+                    <option value="60">60 cards</option>
+                    <option value="80">80 cards</option>
+                    <option value="40">40 cards</option>
+                </select>
+                <label for="average-mana-curve">Average Mana Curve:</label>
+                <input type="number" step="0.01" id="average-mana-curve">
+                <label for="cheap-draw-ramp">Cheap Draw/Ramp:</label>
+                <input type="number" step="0.01" id="cheap-draw-ramp">
+                <label>Companion:</label>
+                <label><input type="checkbox" id="companion"> Have a companion</label>
+                <label for="non-mythic-mdfc">Non-Mythic MDFC (e.g., Jwari Disruption):</label>
+                <input type="number" step="0.01" id="non-mythic-mdfc">
+                <label for="mythic-mdfc">Mythic MDFC (e.g., Don't include Emiria's Call):</label>
+                <input type="number" step="0.01" id="mythic-mdfc">
+                <button type="button" onclick="calculateLands()">Calculate Lands</button>
+            </form>
+            <p id="land-result"></p>
+        </div>
+
+        <!-- Color Base Calculator Tool -->
+        <div class="tool" id="color-base-calculator">
+            <h2>Color Base Calculator</h2>
+            <form id="mtg-color-base-calculator">
+                <label for="deck-size">Deck Size:</label>
+                <select id="color-deck-size">
+                    <option value="60">60 cards</option>
+                    <option value="80">80 cards</option>
+                    <option value="40">40 cards</option>
+                </select>
+                <label for="mana-cost">Select Mana Cost:</label>
+                <select id="mana-cost">
+                    <option value="5C">5C</option>
+                    <option value="4C">4C</option>
+                    <option value="3C">3C</option>
+                    <option value="2C">2C</option>
+                    <option value="5CC">5CC</option>
+                    <option value="1C">1C</option>
+                    <option value="4CC">4CC</option>
+                    <option value="C">C</option>
+                    <option value="3CC">3CC</option>
+                    <option value="4CCC">4CCC</option>
+                    <option value="2CC">2CC</option>
+                    <option value="3CC">3CC</option>
+                    <option value="1CC">1CC</option>
+                    <option value="2CCC">2CCC</option>
+                    <option value="CC">CC</option>
+                    <option value="1CCC">1CCC</option>
+                    <option value="CCC">CCC</option>
+                    <option value="CCCC">CCCC</option>
+                </select>
+                <button type="button" onclick="calculateColorBase()">Calculate Color Base</button>
+            </form>
+            <p id="color-base-result"></p>
+        </div>
+    </div>
 
     <script>
+        // Land Calculator Function
         function calculateLands() {
             // Get input values
             const deckSize = parseFloat(document.getElementById("deck-size").value);
             const averageManaCurve = parseFloat(document.getElementById("average-mana-curve").value);
-            const cheapDrawRamp = parseFloat(document.getElementById("cheap-draw-ramp").value);
+            const cheapDrawRamp = parseFloat(document.getElementById("Number of cheap-draw-ramp spells").value);
             const hasCompanion = document.getElementById("companion").checked;
             const nonMythicMDFC = parseFloat(document.getElementById("non-mythic-mdfc").value);
             const mythicMDFC = parseFloat(document.getElementById("mythic-mdfc").value);
@@ -83,7 +132,114 @@
             const lands = deckSize / 60 * (19.59 + 1.90 * averageManaCurve + (hasCompanion ? 0.27 : 0)) - 0.28 * cheapDrawRamp - (nonMythicMDFC - mythicMDFC);
 
             // Display the result
-            document.getElementById("result").textContent = `Number of Lands Needed: ${lands}`;
+            document.getElementById("land-result").textContent = `Number of Lands Needed: ${lands}`;
+        }
+
+        // Color Base Calculator Function
+        function calculateColorBase() {
+            // Get input values
+            const deckSize = parseFloat(document.getElementById("color-deck-size").value);
+            const manaCost = document.getElementById("mana-cost").value;
+
+            // Define the color base data based on the provided table
+            const colorBaseData = {
+                "5C": {
+                    "60": 9,
+                    "80": 12,
+                    "40": 6
+                },
+                "4C": {
+                    "60": 9,
+                    "80": 14,
+                    "40": 6
+                },
+                "3C": {
+                    "60": 10,
+                    "80": 15,
+                    "40": 7
+                },
+                "2C": {
+                    "60": 12,
+                    "80": 16,
+                    "40": 8
+                },
+                "5CC": {
+                    "60": 12,
+                    "80": 17,
+                    "40": 8
+                },
+                "1C": {
+                    "60": 13,
+                    "80": 18,
+                    "40": 9
+                },
+                "4CC": {
+                    "60": 13,
+                    "80": 19,
+                    "40": 9
+                },
+                "C": {
+                    "60": 14,
+                    "80": 19,
+                    "40": 9
+                },
+                "3CC": {
+                    "60": 15,
+                    "80": 20,
+                    "40": 10
+                },
+                "4CCC": {
+                    "60": 16,
+                    "80": 22,
+                    "40": 10
+                },
+                "2CC": {
+                    "60": 16,
+                    "80": 23,
+                    "40": 11
+                },
+                "3CC": {
+                    "60": 17,
+                    "80": 24,
+                    "40": 11
+                },
+                "1CC": {
+                    "60": 18,
+                    "80": 25,
+                    "40": 12
+                },
+                "2CCC": {
+                    "60": 19,
+                    "80": 26,
+                    "40": 13
+                },
+                "CC": {
+                    "60": 21,
+                    "80": 28,
+                    "40": 14
+                },
+                "1CCC": {
+                    "60": 22,
+                    "80": 31,
+                    "40": 15
+                },
+                "CCC": {
+                    "60": 23,
+                    "80": 32,
+                    "40": 16
+                },
+                "CCCC": {
+                    "60": 24,
+                    "80": 34,
+                    "40": 17
+                }
+            };
+
+            // Get the number of color sources based on deck size and mana cost
+            const colorSources = colorBaseData[manaCost][deckSize];
+
+            // Display the result
+            document.getElementById("color-base-result").textContent = `Number of Lands Needed for ${manaCost}: ${colorSources}`;
         }
     </script>
 </body>
