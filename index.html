@@ -21,7 +21,7 @@
             padding: 20px;
         }
         .tool {
-            width: 400px;
+            width: 500px;
             background-color: white;
             border-radius: 5px;
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
@@ -34,7 +34,7 @@
         }
         select, input[type="number"] {
             width: 100%;
-            padding: 10px;
+            padding: 7px; /* Adjusted the height of input boxes */
             margin-bottom: 10px;
             border: 1px solid #ccc;
             border-radius: 3px;
@@ -50,10 +50,6 @@
         button:hover {
             background-color: #005aa7;
         }
-        #land-result {
-            font-size: 20px;
-            font-weight: bold;
-        }
     </style>
 </head>
 <body>
@@ -68,15 +64,15 @@
                     <option value="60">60 cards</option>
                     <option value="80">80 cards</option>
                 </select>
-                <label for="average-mana-curve">Average Mana Curve:</label>
+                <label for="average-mana-curve">Avg. Mana Curve:</label>
                 <input type="number" step="0.01" id="average-mana-curve" value="3.5">
                 <label for="cheap-draw-ramp">Cheap Draw/Ramp:</label>
                 <input type="number" step="0.01" id="cheap-draw-ramp" value="0">
                 <label>Companion:</label>
                 <label><input type="checkbox" id="companion"> Have a companion</label>
-                <label for="non-mythic-mdfc">Non-Mythic MDFC (e.g., Jwari Disruption):</label>
+                <label for="non-mythic-mdfc">Non-Mythic MDFC:</label>
                 <input type="number" step="0.01" id="non-mythic-mdfc" value="0">
-                <label for="mythic-mdfc">Mythic MDFC (e.g., Don't include Emiria's Call):</label>
+                <label for="mythic-mdfc">Mythic MDFC:</label>
                 <input type="number" step="0.01" id="mythic-mdfc" value="0">
                 <button type="button" onclick="calculateLands()">Calculate Lands</button>
             </form>
@@ -137,7 +133,7 @@
                 0; // No support for 40-card decks
 
             // Display the result
-            document.getElementById("land-result").textContent = `Number of Lands Needed: ${lands} (I would always recommend rounding up)`;
+            document.getElementById("land-result").textContent = `Number of Lands Needed: ${Math.ceil(lands)} (I would always recommend rounding up)`;
         }
 
         // Color Base Calculator Function
@@ -155,12 +151,4 @@
                 // (Rest of the color base data remains the same)
             };
 
-            // Get the number of color sources based on deck size and mana cost
-            const colorSources = colorBaseData[manaCost][deckSize];
-
-            // Display the result
-            document.getElementById("color-base-result").textContent = `Number of Colour Sources Needed: ${colorSources}`;
-        }
-    </script>
-</body>
-</html>
+            // Get the number
