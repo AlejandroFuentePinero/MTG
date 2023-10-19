@@ -14,6 +14,10 @@
         <input type="number" step="0.01" id="cheap-draw-ramp"><br>
         <label for="companion">Companion:</label>
         <input type="checkbox" id="companion"><br>
+        <label for="non-mythic-mdfc">Non-Mythic MDFC:</label>
+        <input type="number" step="0.01" id="non-mythic-mdfc"><br>
+        <label for="mythic-mdfc">Mythic MDFC:</label>
+        <input type="number" step="0.01" id="mythic-mdfc"><br>
         <button type="button" onclick="calculateLands()">Calculate Lands</button>
     </form>
     <p id="result"></p>
@@ -25,9 +29,11 @@
             const averageManaCurve = parseFloat(document.getElementById("average-mana-curve").value);
             const cheapDrawRamp = parseFloat(document.getElementById("cheap-draw-ramp").value);
             const hasCompanion = document.getElementById("companion").checked;
+            const nonMythicMDFC = parseFloat(document.getElementById("non-mythic-mdfc").value);
+            const mythicMDFC = parseFloat(document.getElementById("mythic-mdfc").value);
 
             // Implement your calculation logic here
-            const lands = Math.round(19.59 + 1.90 * averageManaCurve - 0.28 * cheapDrawRamp + (hasCompanion ? 0.27 : 0));
+            const lands = Math.round(19.59 + 1.90 * averageManaCurve - 0.28 * cheapDrawRamp + (hasCompanion ? 0.27 : 0) + nonMythicMDFC - mythicMDFC);
 
             // Display the result
             document.getElementById("result").textContent = `Number of Lands Needed: ${lands}`;
