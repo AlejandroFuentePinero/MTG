@@ -2,40 +2,61 @@
 <html>
 <head>
     <title>MTG Deck Land Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            background-color: #0074cc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+        label, p {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #0074cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005aa7;
+        }
+    </style>
 </head>
 <body>
     <h1>MTG Deck Land Calculator</h1>
     <form id="mtg-calculator">
         <p>Modal Double-Faced Cards (MDFC) are cards that have two faces, like Jwari Disruption and Emeria's Call.</p>
         <label for="average-mana-curve">Average Mana Curve:</label>
-        <input type="number" step="0.01" id="average-mana-curve"><br>
+        <input type="number" step="0.01" id="average-mana-curve">
         <label for="cheap-draw-ramp">Cheap Draw/Ramp:</label>
-        <input type="number" step="0.01" id="cheap-draw-ramp"><br>
+        <input type="number" step="0.01" id="cheap-draw-ramp">
         <label for="companion">Companion:</label>
-        <input type="checkbox" id="companion"><br>
+        <input type="checkbox" id="companion">
         <label for="non-mythic-mdfc">Non-Mythic MDFC:</label>
-        <input type="number" step="0.01" id="non-mythic-mdfc"><br>
-        <label for="mythic-mdfc">Mythic MDFC:</label>
-        <input type="number" step="0.01" id="mythic-mdfc"><br>
-        <button type="button" onclick="calculateLands()">Calculate Lands</button>
-    </form>
-    <p id="result"></p>
-
-    <script>
-        function calculateLands() {
-            // Get input values
-            const averageManaCurve = parseFloat(document.getElementById("average-mana-curve").value);
-            const cheapDrawRamp = parseFloat(document.getElementById("cheap-draw-ramp").value);
-            const hasCompanion = document.getElementById("companion").checked;
-            const nonMythicMDFC = parseFloat(document.getElementById("non-mythic-mdfc").value);
-            const mythicMDFC = parseFloat(document.getElementById("mythic-mdfc").value);
-
-            // Implement your calculation logic here
-            const lands = Math.round(19.59 + 1.90 * averageManaCurve - 0.28 * cheapDrawRamp + (hasCompanion ? 0.27 : 0) + nonMythicMDFC - mythicMDFC);
-
-            // Display the result
-            document.getElementById("result").textContent = `Number of Lands Needed: ${lands}`;
-        }
-    </script>
-</body>
-</html>
+        <input type="number" step="0.01" id="non-mythic-mdfc">
+        <label for="my
